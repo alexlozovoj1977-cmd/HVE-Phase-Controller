@@ -25,7 +25,9 @@ int32_t compute_harmonic_control(int32_t target_L, int32_t current_L, int32_t K_
     } else if (error < -L_HALF) {
         error += L_METRIC;
     } else if (error == L_HALF || error == -L_HALF) {
-        error = L_HALF - 1; // Обхід сідлової сингулярності 180 градусів
+        // Детерміноване вирішення сідлової сингулярності 180 градусів (Buridan's ass paradox)
+        // Забезпечує миттєве виведення з мертвої точки, як описано в HVE Prior Art.
+        error = L_HALF - 1; 
     }
 
     // Гармонічне зв'язування
